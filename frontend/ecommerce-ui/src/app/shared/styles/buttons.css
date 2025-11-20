@@ -591,3 +591,135 @@ button span:first-child + mat-icon {
   margin-right: 0 !important;
 }
 
+/* ===================================
+   Material Icon & Text Alignment
+   =================================== */
+
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-flat-button,
+.mat-mdc-icon-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  vertical-align: middle !important;
+}
+
+.mdc-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.mdc-button__label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  line-height: 1.5 !important;
+}
+
+.mat-mdc-button .mat-icon,
+.mat-mdc-raised-button .mat-icon,
+.mat-mdc-outlined-button .mat-icon,
+.mat-mdc-flat-button .mat-icon,
+.mdc-button .mat-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  flex-shrink: 0;
+  font-family: 'Material Icons' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  word-wrap: normal !important;
+  white-space: nowrap !important;
+  direction: ltr !important;
+}
+
+.mat-mdc-button span:not(.mat-icon),
+.mat-mdc-raised-button span:not(.mat-icon),
+.mat-mdc-outlined-button span:not(.mat-icon),
+.mat-mdc-flat-button span:not(.mat-icon),
+.mdc-button span:not(.mat-icon) {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+
+.mat-mdc-button .mat-icon + span,
+.mat-mdc-raised-button .mat-icon + span,
+.mat-mdc-outlined-button .mat-icon + span,
+.mat-mdc-flat-button .mat-icon + span {
+  margin-left: 0 !important;
+}
+
+.mat-mdc-button span + .mat-icon,
+.mat-mdc-raised-button span + .mat-icon,
+.mat-mdc-outlined-button span + .mat-icon,
+.mat-mdc-flat-button span + .mat-icon {
+  margin-left: 0 !important;
+}
+
+.nav-items button[mat-button] .mdc-button__label {
+  gap: 6px !important;
+}
+
+mat-card-actions button[mat-button] .mdc-button__label {
+  gap: 6px !important;
+}
+
+.login-button .mdc-button__label,
+.logout-btn .mdc-button__label,
+.submit-button .mdc-button__label,
+.header-actions button[mat-raised-button] .mdc-button__label,
+.form-actions button[mat-raised-button] .mdc-button__label {
+  gap: 8px !important;
+}
+
+button[mat-button] > *,
+button[mat-raised-button] > * {
+  vertical-align: middle !important;
+}
+
+.mat-icon {
+  font-family: 'Material Icons' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+  word-wrap: normal !important;
+  direction: ltr !important;
+  -webkit-font-feature-settings: 'liga' !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+button .mat-icon {
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+mat-card-actions button .mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+

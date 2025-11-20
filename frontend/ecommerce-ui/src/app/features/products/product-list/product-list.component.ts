@@ -61,24 +61,10 @@ export class ProductListComponent implements OnInit {
         this.loading.set(false);
         if (response.success && response.data) {
           const productsData = response.data as Product[];
-          // Ensure price is a number (convert from string if needed)
           const normalizedProducts = productsData.map(product => ({
             ...product,
             price: typeof product.price === 'string' ? parseFloat(product.price) : (product.price || 0)
           }));
-          // Debug: Log products to verify data
-          console.log('Products loaded:', normalizedProducts);
-          normalizedProducts.forEach((product, index) => {
-            console.log(`Product ${index + 1}:`, {
-              id: product.id,
-              name: product.name,
-              description: product.description,
-              price: product.price,
-              priceType: typeof product.price,
-              hasName: !!product.name,
-              hasDescription: !!product.description
-            });
-          });
           this.products.set(normalizedProducts);
         }
       },

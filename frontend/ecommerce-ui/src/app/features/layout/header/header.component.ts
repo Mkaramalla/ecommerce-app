@@ -71,87 +71,59 @@ export class HeaderComponent {
    * Logout user with confirmation and notifications
    */
   logout(event?: Event): void {
-    console.log('Logout button clicked!', event);
-    
-    // Prevent event propagation and default behavior
     if (event) {
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
     }
     
-    // Close menu first
     this.menuOpen.set(false);
     
-    // Confirmation dialog
-    const confirmed = confirm('Are you sure you want to logout?');
-    console.log('User confirmed logout:', confirmed);
-    
-    if (confirmed) {
+    if (confirm('Are you sure you want to logout?')) {
       this.loggingOut.set(true);
-      console.log('Starting logout process...');
       
-      // Call logout service
       this.authService.logout().subscribe({
-        next: (response) => {
-          console.log('Logout successful:', response);
+        next: () => {
           this.loggingOut.set(false);
           
-          // Show success message
           this.snackBar.open('Logged out successfully', 'Close', {
             duration: 3000,
             horizontalPosition: 'end',
             verticalPosition: 'top'
           });
           
-          // Clear auth data immediately
           localStorage.removeItem('access_token');
           localStorage.removeItem('user');
           
-          // Ensure navigation to login page
           setTimeout(() => {
-            console.log('Navigating to login page...');
             this.router.navigate(['/login']).then(() => {
-              console.log('Navigation complete, reloading page...');
-              // Reload page to ensure clean state
               window.location.reload();
-            }).catch(err => {
-              console.error('Navigation error:', err);
+            }).catch(() => {
               window.location.href = '/login';
             });
           }, 500);
         },
-        error: (error) => {
-          console.error('Logout error:', error);
+        error: () => {
           this.loggingOut.set(false);
           
-          // Show warning message
           this.snackBar.open('Logged out locally', 'Close', {
             duration: 3000,
             horizontalPosition: 'end',
             verticalPosition: 'top'
           });
           
-          // Clear auth data immediately
           localStorage.removeItem('access_token');
           localStorage.removeItem('user');
           
-          // Ensure navigation to login page even on error
           setTimeout(() => {
-            console.log('Navigating to login page after error...');
             this.router.navigate(['/login']).then(() => {
-              console.log('Navigation complete, reloading page...');
-              // Reload page to ensure clean state
               window.location.reload();
-            }).catch(err => {
-              console.error('Navigation error:', err);
+            }).catch(() => {
               window.location.href = '/login';
             });
           }, 500);
         }
       });
-    } else {
-      console.log('User cancelled logout');
     }
   }
 }

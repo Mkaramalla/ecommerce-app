@@ -5,6 +5,13 @@
 /* Angular Material Theme */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+/* Material Icons Font */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Import Unified Button Styles */
+@import './app/shared/styles/buttons.css';
+@import './app/shared/styles/icon-alignment.css';
+
 /* ===================================
    Base Styles & Reset
    =================================== */
@@ -397,6 +404,54 @@ a:hover {
 
 .mat-mdc-form-field {
   width: 100%;
+}
+
+/* ===================================
+   Material Icon Alignment Fix
+   =================================== */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-flat-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.mat-mdc-button .mat-icon,
+.mat-mdc-raised-button .mat-icon,
+.mat-mdc-outlined-button .mat-icon,
+.mat-mdc-flat-button .mat-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  flex-shrink: 0;
+}
+
+.mat-mdc-button .mdc-button__label,
+.mat-mdc-raised-button .mdc-button__label {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  line-height: 1.5 !important;
+}
+
+/* Fix for Material Button Content */
+.mdc-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.mdc-button__label {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
 }
 
 /* ===================================

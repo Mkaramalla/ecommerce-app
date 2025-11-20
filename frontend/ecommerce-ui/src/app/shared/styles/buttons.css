@@ -1,0 +1,593 @@
+/* ===================================
+   Unified Button Styles
+   E-Commerce Application
+   =================================== */
+
+/* ===================================
+   Base Button Styles
+   =================================== */
+button[mat-button],
+button[mat-raised-button],
+button[mat-icon-button],
+button[mat-fab],
+button[mat-mini-fab] {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  vertical-align: middle;
+}
+
+/* ===================================
+   Raised Buttons (Primary Actions)
+   =================================== */
+button[mat-raised-button] {
+  min-height: 44px;
+  padding: 0 24px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+button[mat-raised-button]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button[mat-raised-button]:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button[mat-raised-button][color="primary"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+button[mat-raised-button][color="primary"]:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5568d3 0%, #653a91 100%);
+}
+
+button[mat-raised-button][color="warn"] {
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+  color: white;
+}
+
+button[mat-raised-button][color="warn"]:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+}
+
+button[mat-raised-button]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ===================================
+   Flat Buttons (Secondary Actions)
+   =================================== */
+button[mat-button] {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+button[mat-button]:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+button[mat-button][color="primary"] {
+  color: #667eea;
+}
+
+button[mat-button][color="primary"]:hover:not(:disabled) {
+  background-color: rgba(102, 126, 234, 0.08);
+}
+
+button[mat-button][color="warn"] {
+  color: #f44336;
+}
+
+button[mat-button][color="warn"]:hover:not(:disabled) {
+  background-color: rgba(244, 67, 54, 0.08);
+}
+
+button[mat-button]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===================================
+   Icon Buttons
+   =================================== */
+button[mat-icon-button] {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button[mat-icon-button]:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.04);
+  transform: scale(1.1);
+}
+
+button[mat-icon-button]:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+button[mat-icon-button]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===================================
+   Button with Icons
+   =================================== */
+button mat-icon {
+  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 1;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+button span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+button:hover:not(:disabled) mat-icon {
+  transform: scale(1.1);
+}
+
+button:active:not(:disabled) mat-icon {
+  transform: scale(0.95);
+}
+
+/* ===================================
+   Specific Button Classes
+   =================================== */
+
+/* Login Button */
+.login-button {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.login-button:hover:not(:disabled) {
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+}
+
+/* Logout Button */
+.logout-btn {
+  min-width: 120px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.logout-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+/* Submit Button */
+.submit-button {
+  min-width: 160px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Header Navigation Buttons */
+.nav-items button[mat-button] {
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+
+.nav-items button[mat-button] mat-icon {
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+}
+
+.nav-items button[mat-button] span {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+}
+
+.nav-items button[mat-button]:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.nav-items .active-link {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  font-weight: 600;
+}
+
+/* User Menu Button */
+.user-menu-btn {
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.user-menu-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Product Card Action Buttons */
+mat-card-actions button[mat-button] {
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+
+mat-card-actions button[mat-button] mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+}
+
+mat-card-actions button[mat-button] span {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+}
+
+mat-card-actions button[mat-button]:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-actions button[mat-button][color="primary"]:hover:not(:disabled) {
+  background-color: rgba(102, 126, 234, 0.1);
+}
+
+mat-card-actions button[mat-button][color="warn"]:hover:not(:disabled) {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Header Actions Buttons (Products Page) */
+.header-actions button[mat-raised-button] {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0 20px;
+  height: 44px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.header-actions button[mat-raised-button] mat-icon {
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+}
+
+.header-actions button[mat-raised-button] span {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+}
+
+.header-actions button[mat-raised-button]:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+/* Form Action Buttons */
+.form-actions button[mat-raised-button] {
+  border-radius: 8px;
+  font-weight: 500;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.form-actions button[mat-raised-button] mat-icon {
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+}
+
+.form-actions button[mat-raised-button] span {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+}
+
+.form-actions button[mat-raised-button]:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  border-radius: 50%;
+}
+
+.mobile-menu-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===================================
+   Loading State Buttons
+   =================================== */
+button:disabled mat-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+button:disabled {
+  position: relative;
+}
+
+/* ===================================
+   Button Groups
+   =================================== */
+.header-actions,
+.form-actions-left,
+.form-actions-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header-actions button {
+  white-space: nowrap;
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+@media (max-width: 768px) {
+  button[mat-raised-button] {
+    min-height: 40px;
+    padding: 0 20px;
+    font-size: 13px;
+  }
+
+  button[mat-button] {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .login-button {
+    height: 44px;
+    font-size: 15px;
+  }
+
+  .submit-button {
+    min-width: 140px;
+  }
+
+  .logout-btn {
+    min-width: 100px;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-actions button {
+    font-size: 12px;
+    padding: 0 16px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  button[mat-raised-button] {
+    min-height: 36px;
+    padding: 0 16px;
+    font-size: 12px;
+  }
+
+  button[mat-button] {
+    min-height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .login-button {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .submit-button {
+    min-width: 120px;
+    font-size: 13px;
+  }
+
+  .logout-btn {
+    min-width: 90px;
+    font-size: 12px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .header-actions button {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* ===================================
+   Focus States (Accessibility)
+   =================================== */
+button:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+button[mat-icon-button]:focus-visible {
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* ===================================
+   Animation for Button Press
+   =================================== */
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+button:active:not(:disabled) {
+  animation: buttonPress 0.2s ease;
+}
+
+/* ===================================
+   Special Button Styles
+   =================================== */
+
+/* Full Width Buttons */
+.full-width {
+  width: 100%;
+}
+
+.full-width button {
+  width: 100%;
+}
+
+/* Button with Icon Spacing - Fixed Alignment */
+button[mat-button],
+button[mat-raised-button] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap;
+}
+
+button[mat-button] mat-icon,
+button[mat-raised-button] mat-icon {
+  flex-shrink: 0;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+}
+
+button[mat-button] span,
+button[mat-raised-button] span {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Fix Material Button Structure */
+button[mat-button] .mdc-button__label,
+button[mat-raised-button] .mdc-button__label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100%;
+}
+
+button[mat-button] .mdc-button__label mat-icon,
+button[mat-raised-button] .mdc-button__label mat-icon {
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Remove default margins and ensure proper spacing */
+button mat-icon + span {
+  margin-left: 0 !important;
+}
+
+button span + mat-icon {
+  margin-left: 0 !important;
+}
+
+button mat-icon:first-child {
+  margin-right: 0 !important;
+}
+
+button span:first-child + mat-icon {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+

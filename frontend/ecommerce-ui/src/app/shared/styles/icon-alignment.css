@@ -1,0 +1,175 @@
+/* ===================================
+   Material Icon & Text Alignment Fix
+   =================================== */
+
+/* Fix for all Material Buttons */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-flat-button,
+.mat-mdc-icon-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  vertical-align: middle !important;
+}
+
+/* Material Button Label Container */
+.mdc-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.mdc-button__label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  line-height: 1.5 !important;
+}
+
+/* Material Icons in Buttons */
+.mat-mdc-button .mat-icon,
+.mat-mdc-raised-button .mat-icon,
+.mat-mdc-outlined-button .mat-icon,
+.mat-mdc-flat-button .mat-icon,
+.mdc-button .mat-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  flex-shrink: 0;
+  font-family: 'Material Icons' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  word-wrap: normal !important;
+  white-space: nowrap !important;
+  direction: ltr !important;
+}
+
+/* Text/Spans in Buttons */
+.mat-mdc-button span:not(.mat-icon),
+.mat-mdc-raised-button span:not(.mat-icon),
+.mat-mdc-outlined-button span:not(.mat-icon),
+.mat-mdc-flat-button span:not(.mat-icon),
+.mdc-button span:not(.mat-icon) {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.5 !important;
+  vertical-align: middle !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+
+/* Remove all margins between icon and text */
+.mat-mdc-button .mat-icon + span,
+.mat-mdc-raised-button .mat-icon + span,
+.mat-mdc-outlined-button .mat-icon + span,
+.mat-mdc-flat-button .mat-icon + span {
+  margin-left: 0 !important;
+}
+
+.mat-mdc-button span + .mat-icon,
+.mat-mdc-raised-button span + .mat-icon,
+.mat-mdc-outlined-button span + .mat-icon,
+.mat-mdc-flat-button span + .mat-icon {
+  margin-left: 0 !important;
+}
+
+/* Specific fixes for different button types */
+button[mat-raised-button] .mdc-button__label,
+button[mat-button] .mdc-button__label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap;
+}
+
+/* Header navigation buttons */
+.nav-items button[mat-button] .mdc-button__label {
+  gap: 6px !important;
+}
+
+/* Product card action buttons */
+mat-card-actions button[mat-button] .mdc-button__label {
+  gap: 6px !important;
+}
+
+mat-card-actions button[mat-button] .mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Login button */
+.login-button .mdc-button__label {
+  gap: 8px !important;
+}
+
+/* Logout button */
+.logout-btn .mdc-button__label {
+  gap: 8px !important;
+}
+
+/* Submit button */
+.submit-button .mdc-button__label {
+  gap: 8px !important;
+}
+
+/* Header actions buttons */
+.header-actions button[mat-raised-button] .mdc-button__label {
+  gap: 8px !important;
+}
+
+/* Form actions buttons */
+.form-actions button[mat-raised-button] .mdc-button__label {
+  gap: 8px !important;
+}
+
+/* Ensure proper alignment for all button content */
+button[mat-button] > *,
+button[mat-raised-button] > * {
+  vertical-align: middle !important;
+}
+
+/* Fix for Material Icon font rendering */
+.mat-icon {
+  font-family: 'Material Icons' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+  word-wrap: normal !important;
+  direction: ltr !important;
+  -webkit-font-feature-settings: 'liga' !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* Override for smaller icons in buttons */
+button .mat-icon {
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+mat-card-actions button .mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -38,19 +38,22 @@ export class ProductFormComponent implements OnInit {
   loading = signal(false);
   isEditMode = signal(false);
   productId: number | null = null;
+  imagePreviewUrl = signal<string | null>(null);
+  imagePreviewError = signal(false);
   
   statusOptions = [
     { value: 'active', label: 'Active' },
     { value: 'inactive', label: 'Inactive' }
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private productService: ProductService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private snackBar: MatSnackBar
-  ) {
+  // Using inject() for Angular 19 best practice
+  private fb = inject(FormBuilder);
+  private productService = inject(ProductService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
+
+  constructor() {
     this.productForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
       description: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -63,10 +66,15 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
     // Check if we're in edit mode
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+    // Only treat as edit mode if id exists and is a valid number (not "new")
+    if (id && id !== 'new' && !isNaN(parseInt(id, 10))) {
       this.productId = parseInt(id, 10);
       this.isEditMode.set(true);
       this.loadProduct();
+    } else {
+      // We're in create mode
+      this.isEditMode.set(false);
+      this.productId = null;
     }
   }
 
@@ -89,6 +97,12 @@ export class ProductFormComponent implements OnInit {
             price: product.price,
             status: product.status
           });
+          
+          // Set image preview if image exists
+          if (product.image && product.image.trim() !== '') {
+            this.imagePreviewUrl.set(product.image);
+            this.imagePreviewError.set(false);
+          }
         }
       },
       error: (error) => {
@@ -209,5 +223,38 @@ export class ProductFormComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/products']);
   }
+
+  /**
+   * Handle image URL change
+   */
+  onImageUrlChange(): void {
+    const imageUrl = this.productForm.get('image')?.value;
+    if (imageUrl && imageUrl.trim() !== '') {
+      this.imagePreviewUrl.set(imageUrl);
+      this.imagePreviewError.set(false);
+    } else {
+      this.imagePreviewUrl.set(null);
+      this.imagePreviewError.set(false);
+    }
+  }
+
+  /**
+   * Handle preview image error
+   */
+  onPreviewImageError(event: Event): void {
+    this.imagePreviewError.set(true);
+    const img = event.target as HTMLImageElement;
+    img.style.display = 'none';
+  }
+
+  /**
+   * Clear image preview
+   */
+  clearImagePreview(): void {
+    this.imagePreviewUrl.set(null);
+    this.imagePreviewError.set(false);
+    this.productForm.patchValue({ image: '' });
+  }
+
 }
 

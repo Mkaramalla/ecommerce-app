@@ -1,0 +1,92 @@
+<app-header></app-header>
+
+<div class="product-detail-container">
+  <!-- Loading State -->
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="60"></mat-spinner>
+      <p>Loading product...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (errorMessage() && !loading()) {
+    <div class="error-container">
+      <mat-icon>error_outline</mat-icon>
+      <h3>{{ errorMessage() }}</h3>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Products
+      </button>
+    </div>
+  }
+
+  <!-- Product Details -->
+  @if (product(); as productData) {
+    @if (!loading() && !errorMessage()) {
+      <div class="product-detail-content">
+        <!-- Back Button -->
+        <button mat-button (click)="goBack()" class="back-button">
+          <mat-icon>arrow_back</mat-icon>
+          Back to Products
+        </button>
+
+        <mat-card class="product-detail-card">
+          <div class="product-detail-grid">
+            <!-- Product Image -->
+            <div class="product-image-section">
+              <div class="product-image-container">
+                @if (productData.image && isValidImageUrl(productData.image) && !imageError()) {
+                  <img 
+                    [src]="productData.image" 
+                    [alt]="productData.name"
+                    (error)="onImageError()"
+                    loading="lazy"
+                  />
+                } @else {
+                  <div class="no-image-large">
+                    <mat-icon>image</mat-icon>
+                    <span>No Image Available</span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info-section">
+              <div class="product-header">
+                <div class="product-title-row">
+                  <h1 class="product-title">{{ productData.name }}</h1>
+                  <mat-chip class="status-chip-large" [class.active]="productData.status === 'active'" [class.inactive]="productData.status === 'inactive'">
+                    {{ productData.status }}
+                  </mat-chip>
+                </div>
+                <div class="product-price-large">{{ formatPrice(productData.price) }}</div>
+              </div>
+
+              <div class="product-description-section">
+                <h3>Description</h3>
+                <p class="product-description-full">{{ productData.description }}</p>
+              </div>
+
+              <!-- Admin Actions -->
+              @if (isAdmin()) {
+                <div class="product-actions">
+                  <button mat-raised-button color="primary" (click)="editProduct()">
+                    <mat-icon>edit</mat-icon>
+                    Edit Product
+                  </button>
+                  <button mat-raised-button color="warn" (click)="deleteProduct()">
+                    <mat-icon>delete</mat-icon>
+                    Delete Product
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    }
+  }
+</div>
+

@@ -55,12 +55,30 @@ mat-form-field {
 .login-button {
   height: 48px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
 .login-button mat-spinner {

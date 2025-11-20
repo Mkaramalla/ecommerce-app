@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -37,13 +37,12 @@ export class ProductListComponent implements OnInit {
   errorMessage = signal<string | null>(null);
   isAdmin = signal(false);
 
-  constructor(
-    private productService: ProductService,
-    private authService: AuthService,
-    private router: Router,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar
-  ) {}
+  // Using inject() for Angular 19 best practice
+  private authService = inject(AuthService);
+  private productService = inject(ProductService);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.isAdmin.set(this.authService.isAdmin());
@@ -61,7 +60,26 @@ export class ProductListComponent implements OnInit {
       next: (response) => {
         this.loading.set(false);
         if (response.success && response.data) {
-          this.products.set(response.data as Product[]);
+          const productsData = response.data as Product[];
+          // Ensure price is a number (convert from string if needed)
+          const normalizedProducts = productsData.map(product => ({
+            ...product,
+            price: typeof product.price === 'string' ? parseFloat(product.price) : (product.price || 0)
+          }));
+          // Debug: Log products to verify data
+          console.log('Products loaded:', normalizedProducts);
+          normalizedProducts.forEach((product, index) => {
+            console.log(`Product ${index + 1}:`, {
+              id: product.id,
+              name: product.name,
+              description: product.description,
+              price: product.price,
+              priceType: typeof product.price,
+              hasName: !!product.name,
+              hasDescription: !!product.description
+            });
+          });
+          this.products.set(normalizedProducts);
         }
       },
       error: (error) => {
@@ -77,6 +95,13 @@ export class ProductListComponent implements OnInit {
    */
   addProduct(): void {
     this.router.navigate(['/products/new']);
+  }
+
+  /**
+   * Navigate to view product details page
+   */
+  viewProduct(productId: number): void {
+    this.router.navigate(['/products', productId]);
   }
 
   /**
@@ -124,8 +149,49 @@ export class ProductListComponent implements OnInit {
   /**
    * Format price for display
    */
-  formatPrice(price: number): string {
-    return `$${price.toFixed(2)}`;
+  formatPrice(price: number | string | null | undefined): string {
+    // Convert to number if it's a string
+    const numPrice = typeof price === 'string' ? parseFloat(price) : (price || 0);
+    
+    // Check if it's a valid number
+    if (isNaN(numPrice) || !isFinite(numPrice)) {
+      return '$0.00';
+    }
+    
+    return `$${numPrice.toFixed(2)}`;
   }
+
+  /**
+   * Check if image URL is valid
+   */
+  isValidImageUrl(url: string): boolean {
+    if (!url || url.trim() === '') return false;
+    try {
+      const urlObj = new URL(url);
+      return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Handle image loading errors
+   */
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    // Hide broken image and show placeholder
+    img.style.display = 'none';
+    const parent = img.parentElement;
+    if (parent && !parent.querySelector('.no-image')) {
+      const noImageDiv = document.createElement('div');
+      noImageDiv.className = 'no-image';
+      noImageDiv.innerHTML = `
+        <mat-icon>image</mat-icon>
+        <span>Image not available</span>
+      `;
+      parent.appendChild(noImageDiv);
+    }
+  }
+
 }
 

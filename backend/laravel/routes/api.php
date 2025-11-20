@@ -18,10 +18,15 @@ use App\Http\Controllers\ProductController;
 
 // Auth routes
 Route::prefix('auth')->group(function () {
+    // Public route - no authentication required
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::get('me', [AuthController::class, 'me']);
+    
+    // Protected routes - require authentication
+    Route::middleware('auth:api')->group(function () {
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::post('refresh', [AuthController::class, 'refresh']);
+        Route::get('me', [AuthController::class, 'me']);
+    });
 });
 
 // Product routes - Protected by JWT authentication

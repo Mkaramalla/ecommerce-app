@@ -60,13 +60,44 @@
               formControlName="image"
               placeholder="Enter image URL (optional)"
               maxlength="500"
+              (input)="onImageUrlChange()"
             />
             <mat-icon matPrefix>image</mat-icon>
-            <mat-hint>Leave empty if no image available</mat-hint>
+            <mat-hint>Enter a valid image URL (e.g., https://example.com/image.jpg)</mat-hint>
             @if (productForm.get('image')?.invalid && productForm.get('image')?.touched) {
               <mat-error>{{ getErrorMessage('image') }}</mat-error>
             }
           </mat-form-field>
+
+          <!-- Image Preview -->
+          @if (imagePreviewUrl()) {
+            <div class="image-preview-container">
+              <div class="image-preview">
+                <img 
+                  [src]="imagePreviewUrl()" 
+                  [alt]="'Preview of ' + (productForm.get('name')?.value || 'product')"
+                  (error)="onPreviewImageError($event)"
+                  loading="lazy"
+                />
+                @if (imagePreviewError()) {
+                  <div class="preview-error">
+                    <mat-icon>error_outline</mat-icon>
+                    <span>Invalid image URL</span>
+                  </div>
+                }
+              </div>
+              <button 
+                mat-button 
+                type="button" 
+                color="warn" 
+                (click)="clearImagePreview()"
+                class="clear-preview-btn"
+              >
+                <mat-icon>close</mat-icon>
+                Clear Preview
+              </button>
+            </div>
+          }
 
           <!-- Price and Status Row -->
           <div class="form-row">
@@ -77,11 +108,12 @@
                 matInput
                 type="number"
                 formControlName="price"
-                placeholder="0.00"
+                placeholder="99.99"
                 step="0.01"
                 min="0"
               />
               <span matPrefix>$&nbsp;</span>
+              <mat-hint>Enter price in USD</mat-hint>
               @if (productForm.get('price')?.invalid && productForm.get('price')?.touched) {
                 <mat-error>{{ getErrorMessage('price') }}</mat-error>
               }
@@ -105,31 +137,35 @@
 
           <!-- Form Actions -->
           <div class="form-actions">
-            <button
-              mat-raised-button
-              type="button"
-              (click)="cancel()"
-              [disabled]="loading()"
-            >
-              <mat-icon>cancel</mat-icon>
-              Cancel
-            </button>
-            
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              [disabled]="loading()"
-              class="submit-button"
-            >
-              @if (loading()) {
-                <mat-spinner diameter="20"></mat-spinner>
-                <span>{{ isEditMode() ? 'Updating...' : 'Creating...' }}</span>
-              } @else {
-                <mat-icon>{{ isEditMode() ? 'save' : 'add' }}</mat-icon>
-                <span>{{ isEditMode() ? 'Update Product' : 'Create Product' }}</span>
-              }
-            </button>
+            <div class="form-actions-left">
+              <button
+                mat-raised-button
+                type="button"
+                (click)="cancel()"
+                [disabled]="loading()"
+              >
+                <mat-icon>cancel</mat-icon>
+                Cancel
+              </button>
+              
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="loading()"
+                class="submit-button"
+              >
+                @if (loading()) {
+                  <mat-spinner diameter="20"></mat-spinner>
+                  <span>{{ isEditMode() ? 'Updating...' : 'Creating...' }}</span>
+                } @else {
+                  <ng-container>
+                    <mat-icon>{{ isEditMode() ? 'save' : 'add' }}</mat-icon>
+                    <span>{{ isEditMode() ? 'Update Product' : 'Create Product' }}</span>
+                  </ng-container>
+                }
+              </button>
+            </div>
           </div>
         </form>
       }

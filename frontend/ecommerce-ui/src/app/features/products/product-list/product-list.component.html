@@ -5,12 +5,6 @@
   <div class="products-header">
     <div class="header-content">
       <h1>Products</h1>
-      @if (isAdmin()) {
-        <button mat-raised-button color="primary" (click)="addProduct()">
-          <mat-icon>add</mat-icon>
-          Add Product
-        </button>
-      }
     </div>
   </div>
 
@@ -40,12 +34,6 @@
       <mat-icon>inventory_2</mat-icon>
       <h3>No products found</h3>
       <p>There are no products available at the moment.</p>
-      @if (isAdmin()) {
-        <button mat-raised-button color="primary" (click)="addProduct()">
-          <mat-icon>add</mat-icon>
-          Add Your First Product
-        </button>
-      }
     </div>
   }
 
@@ -53,11 +41,16 @@
   @if (!loading() && !errorMessage() && products().length > 0) {
     <div class="products-grid">
       @for (product of products(); track product.id) {
-        <mat-card class="product-card">
+        <mat-card class="product-card" (click)="viewProduct(product.id)" [class.clickable]="true">
           <!-- Product Image -->
           <div class="product-image">
-            @if (product.image) {
-              <img [src]="product.image" [alt]="product.name" />
+            @if (product.image && product.image.trim() !== '') {
+              <img 
+                [src]="product.image" 
+                [alt]="product.name"
+                (error)="onImageError($event)"
+                loading="lazy"
+              />
             } @else {
               <div class="no-image">
                 <mat-icon>image</mat-icon>
@@ -71,16 +64,38 @@
             </mat-chip>
           </div>
 
-          <!-- Product Content -->
-          <mat-card-content>
-            <h3 class="product-name">{{ product.name }}</h3>
-            <p class="product-description">{{ product.description }}</p>
-            <div class="product-price">{{ formatPrice(product.price) }}</div>
+          <!-- Product Content - Visible for ALL users (Admin and Regular Users) -->
+          <mat-card-content class="product-card-content" style="display: flex !important; flex-direction: column !important;">
+            <!-- Product Name - Always visible for all users -->
+            <h3 
+              class="product-name" 
+              [title]="product.name || ''"
+              style="display: block !important; visibility: visible !important; opacity: 1 !important; margin: 0 0 12px !important; font-size: 18px !important; font-weight: 600 !important; color: #333 !important; width: 100% !important;"
+            >
+              {{ product.name || 'No Name' }}
+            </h3>
+            
+            <!-- Product Description - Always visible for all users -->
+            <p 
+              class="product-description" 
+              [title]="product.description || ''"
+              style="display: -webkit-box !important; visibility: visible !important; opacity: 1 !important; margin: 0 0 16px !important; font-size: 14px !important; color: #666 !important; line-height: 1.6 !important; width: 100% !important; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 67.2px !important;"
+            >
+              {{ product.description || 'No description available' }}
+            </p>
+            
+            <!-- Product Price - Always visible for all users -->
+            <div 
+              class="product-price"
+              style="display: block !important; visibility: visible !important; opacity: 1 !important;"
+            >
+              {{ formatPrice(product.price || 0) }}
+            </div>
           </mat-card-content>
 
           <!-- Product Actions (Admin Only) -->
           @if (isAdmin()) {
-            <mat-card-actions>
+            <mat-card-actions (click)="$event.stopPropagation()">
               <button mat-button color="primary" (click)="editProduct(product.id)">
                 <mat-icon>edit</mat-icon>
                 Edit

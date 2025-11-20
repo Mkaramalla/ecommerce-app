@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, catchError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { User, LoginRequest, LoginResponse, AuthResponse } from '../../shared/models/user.model';
 
@@ -44,13 +44,29 @@ export class AuthService {
    * Logout current user
    */
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/logout`, {})
-      .pipe(
-        tap(() => {
-          this.clearAuthData();
-          this.router.navigate(['/login']);
-        })
-      );
+    const token = this.getToken();
+    
+    // If no token, just clear local data and return success
+    if (!token) {
+      this.clearAuthData();
+      return of({ success: true, message: 'Logged out locally' });
+    }
+    
+    // Try to logout from server
+    return this.http.post(`${this.apiUrl}/auth/logout`, {}).pipe(
+      tap(() => {
+        // Clear auth data on successful logout
+        this.clearAuthData();
+      }),
+      // Handle errors - still logout locally even if server call fails
+      catchError((error) => {
+        console.error('Logout API error:', error);
+        // Clear auth data even if server logout fails
+        this.clearAuthData();
+        // Return success response so component doesn't treat it as error
+        return of({ success: true, message: 'Logged out locally (server error occurred)' });
+      })
+    );
   }
 
   /**
